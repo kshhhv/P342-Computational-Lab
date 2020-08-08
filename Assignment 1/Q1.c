@@ -15,6 +15,6 @@ int main(){
     sum = sum + i;
   }
   //print the output
-  printf("The sum of all positive integers till  %d", sum);
+  printf("The sum is %d", sum);
   return 0;
 }
