@@ -1,29 +1,20 @@
-size = int(input("Enter the size of grid"))
-points = []
+A = [1,2,3]
+B = [2,4,6]
 
-for m in range(size):
-	for n in range(size):
-		points.append([m,n])
-		n += 1
-	m += 1
+dim = len(A)
 
-sum = 0
-pairs = 0
-print("List is", points)
-tot_points = len(points)
+# Vector addition
+add = []
+for i in range(dim):
+	add.append(A[i] + B[i])
 
-for i in range(tot_points):
-	print("From the point ", points[i])
-	x1,y1 = points[i]
-	for j in range(i+1, tot_points):
-		x2,y2 = points[j]
-		distance = abs(x2 - x1) + abs(y2 - y1)
-		print("Distance: ", distance)
-		sum += distance
-		pairs += 1
+print("The new vector is ", add)
 
-print("Sum is", sum)
-print("Pair is", pairs)
+# Inner product of vectors
+in_pro = 0
+for i in range(dim):
+	pro = A[i]*B[i]
+	in_pro += pro
 
-avg_dist = sum/pairs
-print("The average distance between two points is ", avg_dist)
+print("The dot product is", in_pro)
+
