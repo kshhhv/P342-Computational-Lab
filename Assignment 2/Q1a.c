@@ -22,3 +22,8 @@ int main(){
 
 	return 0;
 }
+/*
+Output:
+Enter the number of linear equidistant points:6
+The average distance between two points is 1.9444
+*/

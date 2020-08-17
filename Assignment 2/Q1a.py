@@ -15,3 +15,7 @@ for i in points:
 avg_dist = tot_dist/tot_pairs
 
 print("The average distance between two points is ", avg_dist)
+'''
+Number of linear equidistant points:6
+The average distance between two points is  1.9444444444444444
+'''

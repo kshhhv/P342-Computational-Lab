@@ -20,3 +20,9 @@ for i in range(tot_points):
 
 avg_dist = sum/pairs
 print("The average distance between two points is",avg_dist)
+
+'''
+Output:
+Enter the size of grid: 6
+The average distance between two points is 3.888888888888889
+'''

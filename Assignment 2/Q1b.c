@@ -41,3 +41,8 @@ int main(){
 
 	printf("The average distance between two points is %.4f", avg_dist);
 }
+/*
+Output:
+Enter the number of linear equidistant points:6
+The average distance between two points is 1.9444
+*/

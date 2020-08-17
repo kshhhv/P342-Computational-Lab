@@ -51,3 +51,11 @@ int main(){
     printf("The dot product is %d", in_pro);
     return 0;
 }
+
+/*
+Output:
+First vector is [1,2,3,]
+Second vector is [2,4,6,]
+The vector sum is [3,6,9,]
+The dot product is 28
+*/
