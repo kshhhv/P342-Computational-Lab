@@ -18,8 +18,5 @@ for i in range(tot_points):
 		x2,y2 = points[j]
 		sum += abs(x2 - x1) + abs(y2 - y1)
 
-print("Sum of distance is",sum)
-print("Total number of pairs is",pairs)
-
 avg_dist = sum/pairs
 print("The average distance between two points is",avg_dist)
