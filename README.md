@@ -10,3 +10,9 @@
 - Average distance between points on:  a) line, and b) grid
 - Vector addition and dot product
 - Matrix operation and product
+
+## Assignment 3
+Three problems of solution of linear system of equation and inverse of matrix using:
+- Partial pivoting of matrix
+- Gauss Jordan Elimination
+
