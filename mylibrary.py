@@ -1,3 +1,5 @@
+import random
+
 def vector_sum(vec_A, vec_B):
     if len(vec_A) == len(vec_B):
         dim = len(vec_A)
@@ -352,4 +354,74 @@ def polynomial_solution(coeffs, x):
         #reduce the polynomial by synthetic division
         coeffs = syn_division(coeffs, root)
     return roots
+
+#ASSIGNMENT 6
+
+#Integration methods
+def mid_integration(f,a,b,N):
+    integ = 0
+    h = (b-a)/N
+    for i in range(N):
+        x = (2*a+(2*i+1)*h)/2
+        integ += h*f(x)
+    return integ
+
+def trap_integration(f,a,b,N):
+    integ = 0
+    h = (b-a)/N
+    x = a
+    for i in range(N):
+        xn = x + h
+        integ += h*(f(xn)+f(x))/2
+        x = xn
+    return integ
+
+def simpsons_integration(f,a,b,N):
+    h = (b-a)/N
+    x = a
+    integ = h*f(x)/3
+    for i in range(N-1):
+        x = x + h
+        if i%2 == 0:
+            integ += h*4*f(x)/3
+        else:
+            integ += h*2*f(x)/3
+    integ += h*f(b)/3
+    return integ
+
+#ceil function
+def ceil(x):
+    if (x/1.0).is_integer() != True:
+        x = int(x)+1
+    return x
+
+#N calculation for different integration methods
+def mid_N(a,b,max_f, error):
+    N = ((b-a)**3*max_f/(24*error))**0.5
+    N = ceil(N)
+    return N
+
+def trap_N(a,b,max_f, error):
+    N = ((b-a)**3*max_f/(12*error))**0.5
+    N = ceil(N)
+    return N
+
+def simp_N(a,b,max_f, error):
+    N = ((b-a)**5*max_f/(180*error))**0.25
+    N = ceil(N)
+    return N
+
+#intgeration by monte carlo
+def monte_carlo(f,a,b,N):
+    sum = 0
+    sq_sum = 0
+    for i in range(N):
+        r = random.random()
+        x = a + (b-a)*r
+        sum += f(x)
+        sq_sum += f(x)**2
+
+    integral = (b-a)*sum/N
+    sigma = ((1/N)*(sq_sum) - (sum/N)**2)**0.5
+    return integral, sigma
 
