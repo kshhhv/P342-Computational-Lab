@@ -1,4 +1,6 @@
 import random
+import matplotlib.pyplot as plt
+
 
 def vector_sum(vec_A, vec_B):
     if len(vec_A) == len(vec_B):
@@ -424,4 +426,90 @@ def monte_carlo(f,a,b,N):
     integral = (b-a)*sum/N
     sigma = ((1/N)*(sq_sum) - (sum/N)**2)**0.5
     return integral, sigma
+
+### After Assignment 7 ###
+
+#first order ode using explicit euler's method
+def euler_de(y_dash, y0, x0, h, xn):
+	#intialize list with initial values
+    y = [y0]
+    x = [x0]
+    i = 0
+    #append lists
+    while x[i] < xn:
+        y.append(y[i] + h * y_dash(y[i],x[i]))
+        x.append(x[i]+h)
+        i+=1
+
+    return y,x
+
+def rungeKuttaSecond(x0, y0, z0, xn, h, f1, f2):
+	#intialize lists
+    x = x0
+    X = [x0]   
+    Y = [y0]
+    Z = [z0]
+    i = 0
+    #check if range is covered
+    while abs(x)<abs(xn):
+        x,y,z = X[i],Y[i],Z[i]
+        k1 = h*f1(x, y, z)
+        l1 = h*f2(x, y, z)
+        
+        k2=h*f1(x+h/2, y+(k1*h)/2, z+(l1*h)/2)
+        l2=h*f2(x+h/2, y+(k1*h)/2, z+(l1*h)/2)
+        
+        k3=h*f1(x+h/2, y+(k2*h)/2, z+(l2*h)/2)
+        l3=h*f2(x+h/2, y+(k2*h)/2, z+(l2*h)/2)
+        
+        k4=h*f1(x+h, y+k3, z+l3)
+        l4=h*f2(x+h, y+k3, z+l3)
+
+        i += 1
+        X.append(x + h)
+        Y.append(y+((k1+2*k2+2*k3+k4))/6)
+        Z.append(z+((l1+2*l2+2*l3+l4))/6)
+         
+    return X[:-1],Y[:-1]
+
+def plot_fun(f,x,xn,h):
+	#create empty lists
+	Xt = []
+	Yt = []
+	i = 0
+	#append the list for diff values
+	while x<=xn:
+	     Xt.append(x)
+	     Yt.append(f(x))
+	     x = x + h
+	     i += 1
+	#plot the graph
+	plt.plot(Xt,Yt, label = 'analytical solution')
+
+
+def Boundary(f, g, x0, y0, xn, yn, z0, z1, h):
+	#find the first guess y for lower and upper z guess
+    temp,a_list = rungeKuttaSecond(x0, y0, z0, xn, h, f, g)
+    a = a_list[-1]
+    temp,b_list = rungeKuttaSecond(x0, y0, z1, xn, h, f, g)
+    b = b_list[-1]
+    #compare the obtained y
+    if abs(a - yn)>0.001 and abs(yn - b)>0.001:
+        z = z1 + (((z0 - z1)*(yn - b))/(a-b))
+        temp,d_list = rungeKuttaSecond(x0, y0, z, xn, h, f, g)
+        d = d_list[-1]
+        #call recursively
+        if (d - yn)>0.001:
+            z2 = z1 + (z-z1)*(yn - b)/(d-b)
+            Boundary(f, g, x0, y0, xn, yn, z2, z1, h)
+        if (yn - d)>0.001:
+            z2 = z + (z0-z)*(yn - d)/(a-d)
+            Boundary(f, g, x0, y0, xn, yn, z2, z1, h)
+        if abs(yn - d)<0.001:
+            return z
+    if abs(a - yn)<0.001:
+        return z0
+    if abs(b - yn)<=0.001:
+        return z1
+
 
